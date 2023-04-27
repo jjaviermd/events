@@ -1,0 +1,9 @@
+<% if @events.all.size > 0 %>
+  <h1>Events schedule</h1>
+  <% @events.each do |e| %>
+    <h2> <%= e.place %> </h2>
+    <p> <%= e.day %> </p>
+  <% end %>
+  <% else %>
+  render plain: "No events scheduled yet"
+<% end %>
