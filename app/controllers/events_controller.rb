@@ -15,8 +15,8 @@ class EventsController < ApplicationController
   def create
     @event = current_user.hostings.build(event_params)
     if @event.save 
-      redirect_to @event_url(@event)
-      notice: "Event succesfully created. Have fun!"
+      redirect_to root_path
+      flash[:notice] = "Event succesfully created. Have fun!"
     else
       flash.now[:error] = "It was not possible to create the event" 
       render :new, status: :unprocessable_entity
@@ -39,4 +39,5 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:day, :place)
+  end
 end
