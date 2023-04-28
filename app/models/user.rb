@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :hostings, inverse_of :host, class_name: "Event"
+  has_many :hostings, inverse_of: :host, class_name: "Event"
 
   has_many :invitations
   has_many :appearances, through: :invitations, source: :event
