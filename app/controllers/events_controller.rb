@@ -18,7 +18,7 @@ class EventsController < ApplicationController
       redirect_to root_path
       flash[:notice] = "Event succesfully created. Have fun!"
     else
-      flash.now[:error] = "It was not possible to create the event" 
+      flash.now[:notice] = "It was not possible to create the event" 
       render :new, status: :unprocessable_entity
     end
   end

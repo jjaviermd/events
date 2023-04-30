@@ -1,0 +1,18 @@
+<h1>Create a new event</h1>
+
+<%= form_with model: @event do |f| %>
+  <div>
+    <%= f.label :day %>
+    <%= f.text_field :day %>
+  </div>
+
+  <div>
+    <%= f.label :place %>
+    <%= f.text_field :place %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+
+  <% end %>
