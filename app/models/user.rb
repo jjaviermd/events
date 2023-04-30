@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :hostings, class_name: "Event"
+  validates_associated :hostings
+  # maybe the correct form is validates_associated :events
 
   has_many :invitations
   has_many :appearances, through: :invitations, source: :event
