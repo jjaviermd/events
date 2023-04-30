@@ -10,11 +10,12 @@
   </head>
 
   <body>
-  <%= current_user.email %>
-  <div>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-  </div>
+  <%= current_user.email if user_signed_in? %>
+
+  <% flash.each do |name, message| %>
+    <div class="<%= name %>"><%= message %></div>
+  <% end %>
+  
     <%= yield %>
   </body>
 </html>

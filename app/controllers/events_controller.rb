@@ -1,39 +1,53 @@
 class EventsController < ApplicationController
   
-  def index
-    @events = Event.all
-  end
+def index
+  @events = Event.all
+end
 
-  def show
+def show
+end
 
-  end
+def new
+  @event = current_user.hostings.build
+end
 
-  def new
-    @event = current_user.hostings.build
-  end
+def edit
+end
 
-  def create
-    @event = current_user.hostings.build(event_params)
-    if @event.save 
-      redirect_to root_path
-      flash[:notice] = "Event succesfully created. Have fun!"
+def create
+  @event = current_user.hostings.build(event_params)
+
+  respond_to do |format|
+    if @event.save
+      format.html { redirect_to event_url(@event), notice: "Event was successfully created." }
+      format.json { render :show, status: :created, location: @event }
     else
-      flash.now[:notice] = "It was not possible to create the event" 
-      render :new, status: :unprocessable_entity
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: @event.errors, status: :unprocessable_entity }
     end
   end
+end
 
-  def edit
-
+def update
+  respond_to do |format|
+    if @event.update(event_params)
+      format.html { redirect_to event_url(@event), notice: "Event was successfully updated." }
+      format.json { render :show, status: :ok, location: @event }
+    else
+      format.html { render :edit, status: :unprocessable_entity }
+      format.json { render json: @event.errors, status: :unprocessable_entity }
+    end
   end
+end
 
-  def update
+def destroy
+  @event.destroy
 
+  respond_to do |format|
+    format.html { redirect_to events_url, notice: "Event was successfully destroyed." }
+    format.json { head :no_content }
   end
-
-  def destroy
-  
-  end
+end
 
   private
 
