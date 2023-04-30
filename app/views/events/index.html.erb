@@ -1,13 +1,20 @@
 <% if @events.all.size > 0 %>
   <h1>Events schedule</h1>
   <% @events.each do |e| %>
-    <h2> <%= e.place %> </h2>
-    <p> <%= e.day %> </p>
+    <div>
+      <h2> <%= e.day %> </h2>
+      <p> <%= e.place %> </p>
+    </div>
   <% end %>
   <% else %>
   <%= render plain: "No events scheduled yet" %>
 <% end %>
 <br>
-<%= link_to "Sign Up", new_user_registration_path %>
-<%= link_to "Sign In", new_user_session_path %>
-<%= link_to "Create event", new_event_path %>
+
+<% if user_signed_in?%>
+  <%= link_to "Create event", new_event_path %>
+  <%= link_to "sign Out", destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to "Sign Up", new_user_registration_path %>
+  <%= link_to "Sign In", new_user_session_path %>
+<% end %>
