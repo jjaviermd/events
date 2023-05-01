@@ -5,10 +5,14 @@
       <h2> <%= e.day %> </h2>
       <p> <%= e.place %> </p>
     </div>
+    <%= link_to "view event", event_path(e) %>
+ 
   <% end %>
   <% else %>
   <%= render plain: "No events scheduled yet" %>
 <% end %>
+<br>
+
 <br>
 
 <% if user_signed_in?%>
