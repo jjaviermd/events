@@ -7,6 +7,7 @@ end
 
 def show
   @event = Event.find(params[:id])
+  cookies[:current_event] = @event.id
 end
 
 def new
