@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
+  before_action :correct_user, only: [:edit, :update, :destroy]
   
 def index
   @events = Event.all
@@ -54,5 +55,10 @@ end
 
   def event_params
     params.require(:event).permit(:day, :place)
+  end
+
+  def correct_user
+    @event = current_user.hostings.find_by(id: params[:id])
+    redirect_to root_path, notice: "You can't perform that action!" if @event.nil?
   end
 end
