@@ -1,9 +1,22 @@
 
 
 <div>
+<h2>Event's details</h2>
 <h3><%= @event.place %></h3>
-<p><%= @event.place %></p>
+<p><%= @event.day %></p>
 <p><%= @event.host.email %></p>
 </div>
 
-<%=button_to "assit!", invitations_path, method: :post %>
+
+
+<% if current_user.id == @event.host.id %>
+  <%= link_to "Edit Event", edit_event_path %>
+  <%= link_to "Cancel Event", @event, method: :delete  %>
+<% else %>
+  <% if @event.guests.exists?(current_user.id)%>
+    <%= link_to "Cancel Assistance" %>
+  <% else %>
+    <%=button_to "Assit!", invitations_path, method: :post %>
+  <% end %>
+<% end %>
+

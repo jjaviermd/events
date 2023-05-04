@@ -1,0 +1,30 @@
+<%= form_with model: event do |f| %>
+<% if event.errors.any? %>
+    <div class="alert alert-primary d-flex align-items-center" role="alert">
+      <span class="material-symbols-outlined">
+        priority_high
+      </span>
+    <div>
+      <ul>
+        <% event.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <% end %>
+  <div>
+    <%= f.label :day %>
+    <%= f.text_field :day %>
+  </div>
+
+  <div>
+    <%= f.label :place %>
+    <%= f.text_field :place %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+
+  <% end %>

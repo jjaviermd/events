@@ -2,47 +2,48 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user, only: [:edit, :update, :destroy]
   
-def index
-  @events = Event.all
-end
+  def index
+    @events = Event.all
+  end
 
-def show
-  @event = Event.find(params[:id])
-  cookies[:current_event] = @event.id
-end
+  def show
+    @event = Event.find(params[:id])
+    cookies[:current_event] = @event.id
+  end
 
-def new
-  @event = current_user.hostings.build
-end
+  def new
+    @event = current_user.hostings.build
+  end
 
-def edit
-end
+  def edit
+    @event = Event.find(params[:id])
+  end
 
-def create
-  @event = current_user.hostings.build(event_params)
+  def create
+    @event = current_user.hostings.build(event_params)
 
-  respond_to do |format|
-    if @event.save
-      format.html { redirect_to root_path, notice: "Event was successfully created." }
-      format.json { render :show, status: :created, location: @event }
-    else
-      format.html { render :new, status: :unprocessable_entity }
-      format.json { render json: @event.errors, status: :unprocessable_entity }
+    respond_to do |format|
+      if @event.save
+        format.html { redirect_to root_path, notice: "Event was successfully created." }
+        format.json { render :show, status: :created, location: @event }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+      end
     end
   end
-end
 
-def update
-  respond_to do |format|
-    if @event.update(event_params)
-      format.html { redirect_to root_path, notice: "Event was successfully updated." }
-      format.json { render :show, status: :ok, location: @event }
-    else
-      format.html { render :edit, status: :unprocessable_entity }
-      format.json { render json: @event.errors, status: :unprocessable_entity }
+  def update
+    respond_to do |format|
+      if @event.update(event_params)
+        format.html { redirect_to root_path, notice: "Event was successfully updated." }
+        format.json { render :show, status: :ok, location: @event }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+      end
     end
   end
-end
 
 def destroy
   @event.destroy
@@ -53,7 +54,7 @@ def destroy
   end
 end
 
-  private
+private
 
   def event_params
     params.require(:event).permit(:day, :place)
