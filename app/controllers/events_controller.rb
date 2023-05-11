@@ -20,7 +20,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = current_user.hostings.build(event_params)
+    @event = current_user.hostings.build(event_params) 
 
     respond_to do |format|
       if @event.save
@@ -49,9 +49,17 @@ def destroy
   @event.destroy
 
   respond_to do |format|
-    format.html { redirect_to events_url, notice: "Event was successfully destroyed." }
+    format.html { redirect_to events_url, notice: "Event was successfully canceled." }
     format.json { head :no_content }
   end
+end
+
+def unattend
+  @event = Event.find(params[:id])
+  current_invitation = Invitation.find_by(user_id: current_user.id, event_id: @event.id)
+  current_invitation.destroy
+
+  redirect_to @event, notice: "You are no longer attending this event!"
 end
 
 private

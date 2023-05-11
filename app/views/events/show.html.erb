@@ -14,7 +14,7 @@
   <%= link_to "Cancel Event", @event, method: :delete  %>
 <% else %>
   <% if @event.guests.exists?(current_user.id)%>
-    <%= link_to "Cancel Assistance" %>
+    <%= link_to 'Unattend', unattend_event_path(@event.id)%>
   <% else %>
     <%=button_to "Assit!", invitations_path, method: :post %>
   <% end %>

@@ -4,6 +4,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   resources :invitations, only: [:create]
-  resources :events
+  resources :events do
+    resources :invitations, only: [:destroy]
+    member do
+      get 'unattend'
+    end
+  end
   root "events#index"
 end
